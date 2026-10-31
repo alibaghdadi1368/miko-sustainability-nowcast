@@ -27,7 +27,7 @@ Each phase ends with something that runs. Ticked boxes are done.
 - [x] Settings per environment (`config/local.yaml`)
 - [x] Spark 4 + Delta Lake session, ANSI mode on
 - [x] "Hello Delta" tests: write, append, time travel, MERGE, idempotency
-- [x] Code quality: `ruff` + `pre-commit`
+- [ ] Code quality: `ruff` + `pre-commit`
 - [x] `Makefile` for every common command
 - [ ] Jenkins in Docker with a `Jenkinsfile` (lint → unit tests → Spark tests)
 - [ ] Design document and first decision records (ADRs)
