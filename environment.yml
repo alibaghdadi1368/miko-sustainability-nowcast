@@ -1,0 +1,11 @@
+# Miko's conda environment.
+# conda gives Python, Java and make; the Python packages come from pyproject.toml (pip).
+name: miko
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11
+  - openjdk=17
+  - make
+  - pip

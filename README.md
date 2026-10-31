@@ -22,8 +22,8 @@ Databricks · Unity Catalog · Terraform
 Each phase ends with something that runs. Ticked boxes are done.
 
 ### Phase 0 · Foundations
-- [ ] Repository, folder structure, `.gitignore`, licence
-- [ ] conda environment (`environment.yml`) and Python package (`pyproject.toml`)
+- [x] Repository, folder structure, `.gitignore`, licence
+- [x] conda environment (`environment.yml`) and Python package (`pyproject.toml`)
 - [ ] Settings per environment (`config/local.yaml`)
 - [ ] Spark 4 + Delta Lake session, ANSI mode on
 - [ ] "Hello Delta" tests: write, append, time travel, MERGE, idempotency
