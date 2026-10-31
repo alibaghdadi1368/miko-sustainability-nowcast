@@ -30,7 +30,7 @@ Each phase ends with something that runs. Ticked boxes are done.
 - [x] Code quality: `ruff` + `pre-commit`
 - [x] `Makefile` for every common command
 - [ ] Jenkins in Docker with a `Jenkinsfile` (lint → unit tests → Spark tests)
-- [ ] Design document and first decision records (ADRs)
+- [x] Design document and first decision records (ADRs)
 
 ### Phase 1 · Synthetic data generator
 - [ ] Cow and farm simulation with hidden factors
