@@ -28,7 +28,7 @@ Each phase ends with something that runs. Ticked boxes are done.
 - [ ] Spark 4 + Delta Lake session, ANSI mode on
 - [ ] "Hello Delta" tests: write, append, time travel, MERGE, idempotency
 - [ ] Code quality: `ruff` + `pre-commit`
-- [ ] `Makefile` for every common command
+- [x] `Makefile` for every common command
 - [ ] Jenkins in Docker with a `Jenkinsfile` (lint → unit tests → Spark tests)
 - [ ] Design document and first decision records (ADRs)
 
