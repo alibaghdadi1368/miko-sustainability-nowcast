@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Version | 0.1 |
-| Date | 30 October 2026 |
+| Date | 31 October 2026 |
 | Author | Ali Baghdadi |
 | Repository | `miko-sustainability-nowcast` |
 | Status | Draft, before Phase 0 |
@@ -174,7 +174,7 @@ Miko uses **8 leading indicators** (daily and monthly) to estimate and forecast 
 | T1 | Ammonia per hectare | kg NH3/ha | 50 to 60 | 51.3 |
 | T2 | Nitrogen soil surplus | kg N/ha | about 125 (clay and sand) | 181 |
 | T3 | Greenhouse gases | kg CO2-eq/kg FPCM | 1.3 to 1.4 | 1.45 |
-| T4 | Herd nitrogen excretion (BEX-like) | kg N/cow/year | below the standard | — |
+| T4 | Herd nitrogen excretion (BEX-like) | kg N/cow/year | below the standard | - |
 
 ### 5.2 Leading indicators (from daily data)
 
