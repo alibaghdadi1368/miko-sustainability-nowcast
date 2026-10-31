@@ -1,14 +1,17 @@
 """Load the settings for one environment (local or cloud) from config/<env>.yaml."""
 
 from __future__ import annotations
+
 import os
 from dataclasses import dataclass
 from pathlib import Path
+
 import yaml
 
 # src/miko/settings.py -> parents[0] = miko, [1] = src, [2] = project root
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CONFIG_DIR = PROJECT_ROOT / "config"
+
 
 @dataclass(frozen=True)
 class Settings:
@@ -18,6 +21,7 @@ class Settings:
     checkpoint_dir: Path
     spark_driver_memory: str
     spark_shuffle_partitions: int
+
 
 def load_settings(env: str | None = None) -> Settings:
     """Read config/<env>.yaml. The env comes from the argument, then MIKO_ENV, then 'local'."""
