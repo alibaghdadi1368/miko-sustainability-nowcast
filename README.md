@@ -25,8 +25,8 @@ Each phase ends with something that runs. Ticked boxes are done.
 - [x] Repository, folder structure, `.gitignore`, licence
 - [x] conda environment (`environment.yml`) and Python package (`pyproject.toml`)
 - [x] Settings per environment (`config/local.yaml`)
-- [ ] Spark 4 + Delta Lake session, ANSI mode on
-- [ ] "Hello Delta" tests: write, append, time travel, MERGE, idempotency
+- [x] Spark 4 + Delta Lake session, ANSI mode on
+- [x] "Hello Delta" tests: write, append, time travel, MERGE, idempotency
 - [ ] Code quality: `ruff` + `pre-commit`
 - [x] `Makefile` for every common command
 - [ ] Jenkins in Docker with a `Jenkinsfile` (lint → unit tests → Spark tests)
