@@ -24,7 +24,7 @@ Each phase ends with something that runs. Ticked boxes are done.
 ### Phase 0 · Foundations
 - [x] Repository, folder structure, `.gitignore`, licence
 - [x] conda environment (`environment.yml`) and Python package (`pyproject.toml`)
-- [ ] Settings per environment (`config/local.yaml`)
+- [x] Settings per environment (`config/local.yaml`)
 - [ ] Spark 4 + Delta Lake session, ANSI mode on
 - [ ] "Hello Delta" tests: write, append, time travel, MERGE, idempotency
 - [ ] Code quality: `ruff` + `pre-commit`
