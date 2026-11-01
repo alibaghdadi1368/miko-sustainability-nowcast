@@ -33,8 +33,8 @@ Each phase ends with something that runs. Ticked boxes are done.
 - [x] Design document and first decision records (ADRs)
 
 ### Phase 1 · Synthetic data generator
-- [ ] Cow and farm simulation with hidden factors
-- [ ] Robot, feed, collar, herd and tank-milk sources
+- [x] Cow and farm simulation with hidden factors
+- [x] Robot, feed, collar, herd and tank-milk sources
 - [ ] KLW reference engine and XML writer, two rule versions
 - [ ] Planned data problems (duplicates, late data, wrong units, ...)
 - [ ] `tiny` / `dev` / `full` profiles, validated against Dutch averages
