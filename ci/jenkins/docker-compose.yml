@@ -1,0 +1,14 @@
+# Start with:  make jenkins-up      Then open:  http://localhost:8090
+services:
+  jenkins:
+    build: .
+    image: miko-jenkins:local
+    container_name: miko-jenkins
+    ports:
+      - "8090:8080"   # 8080 and 8081 are used by the insurance project (Kafka UI, Airflow)
+    volumes:
+      - jenkins_home:/var/jenkins_home   # jobs, history and caches survive a restart
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
