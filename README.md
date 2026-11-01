@@ -13,7 +13,7 @@ film* The Cow *(1969). Miko is named after my cat. All data in this project is s
 **Stack:** Python · PySpark · Delta Lake · MLflow · Streamlit · Jenkins · Docker ·
 Databricks · Unity Catalog · Terraform
 
-
+Full design: [docs/design.md](docs/design.md)
 
 ---
 
@@ -29,7 +29,7 @@ Each phase ends with something that runs. Ticked boxes are done.
 - [x] "Hello Delta" tests: write, append, time travel, MERGE, idempotency
 - [x] Code quality: `ruff` + `pre-commit`
 - [x] `Makefile` for every common command
-- [ ] Jenkins in Docker with a `Jenkinsfile` (lint → unit tests → Spark tests)
+- [x] Jenkins in Docker with a `Jenkinsfile` (lint → unit tests → Spark tests)
 - [x] Design document and first decision records (ADRs)
 
 ### Phase 1 · Synthetic data generator
