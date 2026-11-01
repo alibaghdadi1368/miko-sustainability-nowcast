@@ -1,0 +1,112 @@
+# Settings for the synthetic data generator (Phase 1).
+# Everything the generator "knows" about farms and cows is here, not in the code.
+# Dates are quoted so YAML keeps them as text.
+
+seed: 42                         # same seed + same settings = exactly the same data
+
+output:
+  truth_dir: data/truth          # hidden truth for tests; Miko's pipeline never reads it
+
+profiles:                        # gzip: true = robot files as .jsonl.gz (about 8x smaller)
+  tiny: {farms: 2, start: "2025-03-01", end: "2025-03-31"}     # CI and quick checks
+  dev:  {farms: 5, start: "2025-01-01", end: "2025-12-31"}     # daily development
+  # full is for modelling (Phase 5): about 15 minutes and 3.5 GB
+  full: {farms: 60, start: "2023-01-01", end: "2026-09-30", gzip: true}
+
+farm:
+  herd_size: [70, 150]           # milking + dry cows, chosen at random per farm
+  cows_per_ha: [1.6, 2.6]        # stocking density
+  grassland_share: [0.65, 0.9]   # rest of the land is maize
+  soil_share: {sand: 0.5, clay: 0.3, peat: 0.2}
+  feeder_share: 0.8              # farms with a feeding robot (the rest send no feed data)
+  grazing_share: 0.7             # farms that put cows outside in summer
+  grazing_hours: [4, 9]          # hours per day in the grazing season
+  grazing_season: ["04-15", "10-15"]
+  cows_per_robot: 60
+  youngstock_per_10_cows: [5.5, 8.5]
+  ration_cp: [150, 180]          # crude protein of the basic ration, g/kg DM
+  fertiliser_n_per_ha: [150, 250]  # kg N per ha of grassland per year
+  manure_export_share: [0.0, 0.3]
+  area_change_share: 0.15        # each new year, this share of farms changes area
+
+cow:
+  parity_share: [0.32, 0.25, 0.18, 0.12, 0.08, 0.05]   # lactation 1, 2, 3, 4, 5, 6
+  lactation_days: [335, 25]      # mean and sd
+  dry_days: 60
+  first_calving_age_days: 730
+  calving_interval_days: 400
+  wood_curve: {a: 20.4, b: 0.2, c: 0.0038}   # milk = a * day^b * exp(-c * day)
+  first_lactation_factor: 0.85
+  potential_sd: 0.12             # differences between cows
+  day_noise_sd: 0.08             # differences between days
+  skill_milk_effect: 0.05        # +5% milk per point of management skill
+  fat_pct: [4.45, 0.04, 0.15]    # base, change per kg below 28 kg, sd
+  protein_pct: [3.55, 0.02, 0.06]
+  lactose_pct: [4.55, 0.05]
+  replacement_rate: 0.28         # share of cows leaving per year
+  sold_share: 0.6                # of the cows leaving, this share is sold alive
+
+feed:
+  dmi_base: 8.0                  # kg DM per day
+  dmi_per_kg_fpcm: 0.40
+  dmi_dry: 12.0
+  skill_efficiency: 0.03         # better managers need 3% less feed per point of skill
+  concentrate: [0.30, 1.0, 1.0, 9.0]   # kg = 0.30 * milk - 1.0, between 1 and 9 kg per day
+  concentrate_dm: 0.88
+  concentrate_cp: 175            # g/kg DM
+  dry_ration_cp: 130
+  grass_cp_bonus: 15             # fresh grass adds protein, g/kg DM at 8 hours of grazing
+  cp_day_sd: 3
+  ration_dm_pct: [38, 46]
+  n_retained_lactating: 0.015    # kg N per cow per day (growth, pregnancy)
+  n_retained_dry: 0.02
+  youngstock_n_exc_per_day: 0.11 # kg N per heifer per day
+  youngstock_dmi: 6.5            # kg DM per heifer per day
+  urea: [23, 0.35, 2]            # mg/100 g = 23 + 0.35 * (CP - 160) + noise
+  delivered_share: 0.97          # milk that goes to the tank (not fed to calves)
+
+problems:                        # planned data problems, see docs/data_dictionary.md
+  duplicate_rate: 0.005          # share of events sent twice
+  impossible_value_rate: 0.001   # 80 kg milk in one visit, or 0% fat
+  wrong_unit_rate: 0.002         # protein 0.035 instead of 3.5
+  outages_per_farm_year: 2       # internet down, data arrives late
+  outage_days: [1, 3]
+  clock_drift_share: 0.3         # share of farms with one robot whose clock is wrong
+  clock_drift_hours: 2
+  clock_drift_days: 30
+  cow_move_share: 0.1            # share of new cows bought from another farm
+
+# The KLW reference engine. It sees everything (soil, fertiliser) and its rules change.
+# "&base" saves the block under a name; "<<: *base" copies it and then changes some keys.
+klw_rules:
+  "2023.1": &base
+    from_year: 2023
+    xml_schema: 1
+    ef_nh3_barn: 0.13            # share of excreted N lost as ammonia (barn, storage, spreading)
+    ef_nh3_pasture: 0.03
+    n_deposition_per_ha: 25
+    n_uptake_grass: {sand: 290, clay: 320, peat: 270}   # kg N per ha
+    n_uptake_maize: 160
+    peat_mineralisation_per_ha: 80
+    ch4_enteric_g_per_kg_dm: 21.5
+    gwp_ch4: 34
+    gwp_n2o: 298
+    manure_co2eq_per_kg_n: 16.0
+    soil_n2o_ef: 0.01
+    feed_co2eq_per_kg_concentrate: 0.85
+    feed_co2eq_per_kg_roughage_dm: 0.15
+    energy_co2eq_per_kg_milk: 0.04
+    peat_co2eq_per_ha: 0         # not counted before 2024
+  "2024.1":
+    <<: *base
+    from_year: 2024
+    xml_schema: 2                # one field renamed, one field added
+    peat_co2eq_per_ha: 18000     # from 2024 peat soils count (about +10% on average)
+
+# Dutch averages (2020) used to check the generated data. Within 10% = OK.
+reference:
+  milk_kg_per_cow: 9000
+  nh3_kg_per_ha: 51.3
+  n_surplus_kg_per_ha: 181
+  ghg_kg_per_kg_fpcm: 1.45
+  tolerance: 0.10
