@@ -9,6 +9,9 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home   # jobs, history and caches survive a restart
     restart: unless-stopped
+    environment:
+      - JAVA_OPTS=-Xmx768m   # Jenkins itself: max 768 MB, leaves room for Spark in the tests
+    mem_limit: 3g            # if a build needs more, only the build fails; WSL does not freeze
 
 volumes:
   jenkins_home:
